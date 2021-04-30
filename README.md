@@ -24,9 +24,10 @@ Dependencies were placed in ```./src/third_party/```, if You wish to update them
 If You handle the dependencies by Yourself:
 1. Add StormLib either as a git submodule or directly clone it to ```./src/third_party/StormLib```.
 
+After completing the step above please follow the steps below.
 If You use the included dependencies:
-2. Build StormLib as ReleaseUD.
-3. Build the final solution in Release configuration targeting x86.
+1. Build StormLib as ReleaseUD.
+2. Build the final solution in Release configuration targeting x86.
 
 ## Citation
 

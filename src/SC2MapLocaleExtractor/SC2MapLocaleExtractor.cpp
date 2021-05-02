@@ -16,7 +16,7 @@
 int main(int argc, char** argv)
 {
     if(argc < 3) {
-        std::cout << "You have not provided required arguments!";
+        std::cout << "You have not provided required arguments!" << "\n";
         std::cout << "Usage: "<< argv[0] <<" <input_directory> <output_filepath_with_filename>.json";
         return 1;
     }

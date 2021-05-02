@@ -77,10 +77,15 @@ cd Debug
 
 If You wish to use the newest version of [StormLib](https://github.com/Kaszanas/StormLib) that was not forked, Add StormLib either as a git submodule or directly clone it to ```./src/third_party/```.
 
-## Citation
+## Cite us
 
 If You use this tool please cite is as follows:
 
 ```
 BiBTeX entry from Zenodo
 ```
+
+## Contributions
+
+- Andrzej Białecki - Conceptualization, programming, documentation,
+- Piotr Białecki - Technical oversight (consulting, code review).

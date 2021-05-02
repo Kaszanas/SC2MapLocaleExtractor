@@ -1,6 +1,7 @@
 ## SC2MapLocaleExtractor
 
-This repository contains a tool that allows to extract localization mapping from ```.SC2Map``` files into a ```.json``` output.
+This repository contains a tool that allows to extract localization mapping from a directory containing ```.SC2Map``` files into a ```.json``` output.
+The extraction is mapping foreign map names into English map names as follows: ```{"foreignMapName": "englishMapName"}```
 
 ### Sample output data
 

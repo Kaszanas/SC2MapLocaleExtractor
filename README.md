@@ -2,6 +2,29 @@
 
 This repository contains a tool that allows to extract localization mapping from ```.SC2Map``` files into a ```.json``` output.
 
+### Sample output data
+
+```
+{
+    "16 Bits LE": "16-Bit LE",
+    "16 bits EC": "16-Bit LE",
+    "16 bits EE": "16-Bit LE",
+    "16 bits EJ": "16-Bit LE",
+    "16 bitów ER": "16-Bit LE",
+    "16 бит РВ": "16-Bit LE",
+    "16位-天梯版": "16-Bit LE",
+    "16位元 - 天梯版": "16-Bit LE",
+    "16비트 - 래더": "16-Bit LE",
+    "Akropol ER": "Acropolis LE",
+    "Akropolis LE": "Acropolis LE",
+    "Acropoli LE": "Acropolis LE",
+    "Acropolis EC": "Acropolis LE",
+    "Acrópole LE": "Acropolis LE",
+    "Acrópolis EE": "Acropolis LE",
+    "Acrópolis EJ": "Acropolis LE",
+}
+```
+
 ## Usage
 
 This tool works only on Windows x86 or x64.

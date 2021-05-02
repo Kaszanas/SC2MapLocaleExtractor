@@ -11,6 +11,11 @@ If You decide to use this tool and You have the ```.exe``` binary either built o
 SC2MapLocaleExtractor.exe <input_directory> <output_filepath_with_filename>.json
 ```
 
+## Requirements
+
+1. Visual Studio 2019 - Desktop development with C++ workload
+2. Git
+
 ## Dependencies
 
 1. [StormLib](https://github.com/Kaszanas/StormLib)
@@ -19,18 +24,22 @@ SC2MapLocaleExtractor.exe <input_directory> <output_filepath_with_filename>.json
 ## Build
 
 All required code is included in this repository.
-Dependencies were placed in ```./src/third_party/```, if You wish to update them please refer to the current directory structure of the project.
+Dependencies were placed in ```./src/third_party/```, if You wish to update them please refer Notes section below.
 
-### Initial setup
+1. Open a command prompt that recognizes "msbuild" command, we recommend: "x86 Native Tools Command Prompt for VS 2019"
+2. Clone the repository using the following command:
+```
+git clone --recurse-submodules https://github.com/Kaszanas/SC2MapLocaleExtractor.git && cd SC2MapLocaleExtractor/src
+```
+this command will download all of the code including the forked version of [StormLib](https://github.com/Kaszanas/StormLib) and header only implementation of [nlohmann/json](https://github.com/nlohmann/json).
+3. Build StormLib by running the following command: ```cd third_party/StormLib && msbuild StormLib_vs19.vcxproj /p:Configuration=DebugUD && cd ../..```
+4. Build SC2MapLocaleExtractor by running the following command: ```cd SC2MapLocaleExtractor && msbuild SC2MapLocaleExtractor.vcxproj /p:Configuration=Debug```
+5. Change the directory to where the ```SC2MapLocaleExtractor.exe``` was build by running the following command: ```cd Debug```
+6. Use the tool in accordance with Usage section.
 
-1. Clone the repository using the following command ```git clone --recurse-submodules https://github.com/Kaszanas/SC2MapLocaleExtractor.git```, this command will download all of the code including the forked version of [StormLib](https://github.com/Kaszanas/StormLib) and header only implementation of [nlohmann/json](https://github.com/nlohmann/json).
-2. OPTIONAL (If You handle the dependencies by Yourself): Add StormLib either as a git submodule or directly clone it to ```./src/third_party/StormLib```.
-3. Using Visual Studio open the solution ```./src/SC2MapLocaleExtractor.sln```
-4. Change the solution configuration to "DebugUD" and build StormLib project (targeting x86) that is included.
-5. Change the solution configuration to Debug and build the SC2MapLocaleExtractor project (targeting x86).
+## Notes
 
-After completing the step above please follow the steps below.
-If You use the included dependencies:
+If You wish to use the newest version of [StormLib](https://github.com/Kaszanas/StormLib) that was not forked, Add StormLib either as a git submodule or directly clone it to ```./src/third_party/```.
 
 ## Citation
 

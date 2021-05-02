@@ -15,16 +15,14 @@
 
 int main(int argc, char** argv)
 {
-    // if(argc < 3) {
-    //     std::cout << "Usage: "<< argv[0] <<" ... ...";
-    //     return 1;
-    // }
+    if(argc < 3) {
+        std::cout << "You have not provided required arguments!";
+        std::cout << "Usage: "<< argv[0] <<" <input_directory> <output_filepath_with_filename>.json";
+        return 1;
+    }
 
-    // std::string directoryString = argv[1];
-    // std::string outputFile = argv[2];
-
-    std::string directoryString = "D:/Projects/GolangProjects/src/GoSC2Science/map_translator/MAPS/";
-    std::string outputFile = "SC2LocaleMapping.json";
+    std::string directoryString = argv[1];
+    std::string outputFile = argv[2];
 
     std::optional<nlohmann::json> maybe_mapping = locale_extraction_pipeline(directoryString);
     if (maybe_mapping.has_value())

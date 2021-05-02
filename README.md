@@ -87,5 +87,5 @@ BiBTeX entry from Zenodo
 
 ## Contributions
 
-- Andrzej Białecki - Conceptualization, programming, documentation,
+- Andrzej Białecki - conceptualization, programming, documentation,
 - Piotr Białecki - Technical oversight (consulting, code review).

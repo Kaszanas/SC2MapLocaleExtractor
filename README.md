@@ -26,16 +26,17 @@ SC2MapLocaleExtractor.exe <input_directory> <output_filepath_with_filename>.json
 All required code is included in this repository.
 Dependencies were placed in ```./src/third_party/```, if You wish to update them please refer Notes section below.
 
-1. Open a command prompt that recognizes "msbuild" command, we recommend: "x86 Native Tools Command Prompt for VS 2019"
-2. Clone the repository using the following command:
+- Open a command prompt that recognizes "msbuild" command, we recommend: "x86 Native Tools Command Prompt for VS 2019"
+- Clone the repository using the following command:
 ```
 git clone --recurse-submodules https://github.com/Kaszanas/SC2MapLocaleExtractor.git && cd SC2MapLocaleExtractor/src
 ```
 this command will download all of the code including the forked version of [StormLib](https://github.com/Kaszanas/StormLib) and header only implementation of [nlohmann/json](https://github.com/nlohmann/json).
-3. Build StormLib by running the following command: ```cd third_party/StormLib && msbuild StormLib_vs19.vcxproj /p:Configuration=DebugUD && cd ../..```
-4. Build SC2MapLocaleExtractor by running the following command: ```cd SC2MapLocaleExtractor && msbuild SC2MapLocaleExtractor.vcxproj /p:Configuration=Debug```
-5. Change the directory to where the ```SC2MapLocaleExtractor.exe``` was build by running the following command: ```cd Debug```
-6. Use the tool in accordance with Usage section.
+
+- Build StormLib by running the following command: ```cd third_party/StormLib && msbuild StormLib_vs19.vcxproj /p:Configuration=DebugUD && cd ../..```
+- Build SC2MapLocaleExtractor by running the following command: ```cd SC2MapLocaleExtractor && msbuild SC2MapLocaleExtractor.vcxproj /p:Configuration=Debug```
+- Change the directory to where the ```SC2MapLocaleExtractor.exe``` was build by running the following command: ```cd Debug```
+- Use the tool in accordance with Usage section.
 
 ## Notes
 

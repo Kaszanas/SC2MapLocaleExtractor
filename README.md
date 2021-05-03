@@ -100,5 +100,5 @@ If You use this tool please cite is as follows:
 
 ## Contributions
 
-- Andrzej Białecki - Conceptualization, programming, documentation,
-- Piotr Białecki - Technical oversight (consulting, code review).
+- Andrzej Białecki - conceptualization, programming, documentation,
+- Piotr Białecki - technical oversight (consulting, code review).

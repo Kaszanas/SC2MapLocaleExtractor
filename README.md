@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/362452072.svg)](https://zenodo.org/badge/latestdoi/362452072)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4782695.svg)](https://doi.org/10.5281/zenodo.4782695)
 
 ## SC2MapLocaleExtractor
 
@@ -83,18 +83,19 @@ If You wish to use the newest version of [StormLib](https://github.com/Kaszanas/
 
 If You use this tool please cite is as follows:
 
+
 ```
-@software{Bialecki2021_4733265,
+@software{Bialecki2021_4782695,
   author       = {Białecki, Andrzej and
                   Białecki, Piotr},
-  title        = {{Kaszanas/SC2MapLocaleExtractor: 1.0.0 
+  title        = {{Kaszanas/SC2MapLocaleExtractor: 1.0.1 
                    SC2MapLocaleExtractor Release}},
   month        = may,
   year         = 2021,
   publisher    = {Zenodo},
-  version      = {1.0.0},
-  doi          = {10.5281/zenodo.4733265},
-  url          = {https://doi.org/10.5281/zenodo.4733265}
+  version      = {1.0.1},
+  doi          = {10.5281/zenodo.4782695},
+  url          = {https://doi.org/10.5281/zenodo.4782695}
 }
 ```
 

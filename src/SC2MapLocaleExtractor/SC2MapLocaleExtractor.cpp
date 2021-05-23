@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cstdio>
 #include <Windows.h>
 
 // Third party:
@@ -11,7 +12,6 @@
 // My imports
 #include "helpers.h"
 #include "extractors.h"
-
 
 int main(int argc, char** argv)
 {
@@ -39,6 +39,9 @@ int main(int argc, char** argv)
     {
         return EXIT_FAILURE;
     }
+
+    std::cout << "Press ENTER to continue...";
+    std::getchar();
 
     return EXIT_SUCCESS;
 }

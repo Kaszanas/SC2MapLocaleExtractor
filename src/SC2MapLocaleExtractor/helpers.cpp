@@ -85,9 +85,14 @@ std::optional<nlohmann::json> generate_final_locale_mapping(const std::vector<nl
             {
                 // Mapping foreign name to english name:
                 std::string foreign_map_name = foreign_map_mapping.value();
+
                 if (foreign_map_name != en_map_name)
                 {
-                    
+                    if (foreign_map_name == "")
+                    {
+                        std::cout << "Detected empty string as a foreign_map_name, skipping. This happened when reading: " << en_map_name << "\n";
+                        continue;
+                    }
                     final_mapping.emplace(foreign_map_name, en_map_name);
                 }
             }

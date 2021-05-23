@@ -59,6 +59,13 @@ std::optional<std::string> extract_map_name_string(std::string game_description)
              std::vector<std::string> map_name_split_comment = split_string(map_name, " /// ");
              map_name = map_name_split_comment[0];
          }
+
+         if (map_name.empty())
+         {
+             std::cout << "Detected empty map name returning \n";
+             return std::nullopt;
+         }
+
          return std::make_optional(map_name);
      }
      std::cout << "Error! Detected empty map name returning \n";
@@ -105,16 +112,27 @@ std::optional<nlohmann::json> locale_extractor(const std::filesystem::path& file
         auto maybe_locale = extract_locale_from_mpq(MPQArchive, foundLocaleFileData);
         // Checking if data was extracted:
         if (!maybe_locale.has_value()) {
-            // TODO: log
+            std::cout << "Couldn't extract locale from MPQ, error: " << "\n";
             continue;
         }
 
         // Extracting map name:
-        std::string map_name_string = *extract_map_name_string(*maybe_locale);
+        std::optional<std::string> maybe_map_name_string = extract_map_name_string(*maybe_locale);
+        if (!maybe_map_name_string.has_value())
+        {
+            std::cout << "Detected empty map_name_string, skipping." << "\n";
+            continue;
+        }
+        std::string map_name_string = *maybe_map_name_string;
 
         // Obtaining region code:
         std::string region_name = foundLocaleFileData.cFileName;
         std::string locale_region = locale_region_extractor(region_name);
+
+        if (map_name_string == "")
+        {
+            std::cout << "Detected empty string as a foreign_map_name, skipping. This happened when reading: " << locale_region << "\n";
+        }
 
         myMapping[locale_region] = map_name_string;
 

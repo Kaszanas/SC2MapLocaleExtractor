@@ -46,6 +46,7 @@ SC2MapLocaleExtractor.exe <input_directory> <output_filepath_with_filename>.json
 
 1. [StormLib](https://github.com/Kaszanas/StormLib)
 2. [nlohmann/json](https://github.com/nlohmann/json)
+3. [spdlog](https://github.com/gabime/spdlog/tree/v1.8.5)
 
 ## Build
 

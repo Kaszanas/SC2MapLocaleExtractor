@@ -9,12 +9,21 @@
 #include "StormLib.h"
 #include <nlohmann/json.hpp>
 
+// Logging:
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/basic_file_sink.h"
+
 // My imports
 #include "helpers.h"
 #include "extractors.h"
 
 int main(int argc, char** argv)
 {
+
+    helpers::initialize_logger();
+    auto logger = spdlog::get("logger");
+    logger->info("Initialized logger!");
+
     if(argc < 3) {
         std::cout << "You have not provided required arguments!" << "\n";
         std::cout << "Usage: "<< argv[0] <<" <input_directory> <output_filepath_with_filename>.json";
@@ -22,9 +31,11 @@ int main(int argc, char** argv)
     }
 
     std::string directoryString = argv[1];
+    logger->info("directoryString was specified as: {}", directoryString);
     std::string outputFile = argv[2];
+    logger->info("outputFile was specified as: {}", outputFile);
 
-    std::optional<nlohmann::json> maybe_mapping = locale_extraction_pipeline(directoryString);
+    std::optional<nlohmann::json> maybe_mapping = extractors::locale_extraction_pipeline(directoryString);
     if (maybe_mapping.has_value())
     {
         // Getting the final string value from json structure:

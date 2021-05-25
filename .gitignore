@@ -7,6 +7,7 @@
 build/
 .vscode/
 *.json
+*.txt
 
 # User-specific files
 *.rsuser

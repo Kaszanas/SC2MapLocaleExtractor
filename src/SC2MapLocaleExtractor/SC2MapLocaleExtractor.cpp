@@ -25,20 +25,17 @@ int main(int argc, char** argv)
 
     logger->info("Initialized logger!");
 
-    //if(argc < 3) {
-    //    logger->warn("You have not provided required arguments!");
-    //    logger->warn("Usage: {} <input_directory> <output_filepath_with_filename>.json", argv[0]);
-    //    std::cout << "Press ENTER to continue...";
-    //    std::getchar();
-    //    return 1;
-    //}
+    if(argc < 3) {
+        logger->warn("You have not provided required arguments!");
+        logger->warn("Usage: {} <input_directory> <output_filepath_with_filename>.json", argv[0]);
+        std::cout << "Press ENTER to continue...";
+        std::getchar();
+        return 1;
+    }
 
-    std::string directoryString = "D:/Projects/GolangProjects/src/GoSC2Science/map_translator/MAPS";
-    std::string outputFile = "output.json";
-
-    //std::string directoryString = argv[1];
+    std::string directoryString = argv[1];
     logger->info("directoryString was specified as: {}", directoryString);
-    //std::string outputFile = argv[2];
+    std::string outputFile = argv[2];
     logger->info("outputFile was specified as: {}", outputFile);
 
     std::optional<nlohmann::json> maybe_mapping = extractors::locale_extraction_pipeline(directoryString);

@@ -23,6 +23,9 @@ namespace helpers
     // string to wstring helper function:
     std::wstring s2ws(const std::string& str)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("Entered s2ws()");
+
         int size_needed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
         std::wstring wstrTo(size_needed, 0);
         MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), &wstrTo[0], size_needed);
@@ -32,6 +35,9 @@ namespace helpers
     // wstring to string helper function:
     std::string ws2s(const std::wstring& wstr)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("Entered ws2s()");
+
         if (wstr.empty()) return std::string();
         int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], -1, NULL, 0, NULL, NULL);
         std::string strTo(size_needed, 0);
@@ -43,6 +49,9 @@ namespace helpers
     // Function that reads and lists a directory into a supplied vector:
     void directory_reader(std::vector<std::filesystem::path>& vector_to_populate, const std::string& input_directory, const std::string& get_extension)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("Entered directory_reader()");
+
         // Iterating over files that were detected in a directory:
         for (const auto& file : std::filesystem::directory_iterator(input_directory))
         {
@@ -59,6 +68,9 @@ namespace helpers
     // Function that splits a string and returns a vector of strings:
     std::vector<std::string> split_string(const std::string& str, const std::string& delimiter)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("Entered split_string()");
+
         std::vector<std::string> strings;
 
         std::string::size_type pos = 0;
@@ -78,6 +90,9 @@ namespace helpers
     // Function generating a final locale mapping from {"foreignName": "englishName"}
     std::optional<nlohmann::json> generate_final_locale_mapping(const std::vector<nlohmann::json>& not_mapped_locales)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("entered generate_final_locale_mapping()");
+
         // Initializing function variables:
         nlohmann::json final_mapping;
 

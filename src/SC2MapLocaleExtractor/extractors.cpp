@@ -18,11 +18,13 @@ namespace extractors
     // Function that extracts one locale file information from MPQ Archive:
     std::optional<std::string> extract_locale_from_mpq(HANDLE mpqArchive, const SFILE_FIND_DATA& file_data)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("Entered extract_locale_from_mpq()");
         HANDLE openedLocaleFile;
         bool result = SFileOpenFileEx(mpqArchive, file_data.cFileName, SFILE_OPEN_FROM_MPQ, &openedLocaleFile);
         if (!result)
         {
-            std::cout << "Couldn't open the file that is within MPQ Archive, error: " << GetLastError() << "\n";
+            logger->warn("Couldn't open the file that is within MPQ Archive, error: {}", GetLastError());
             return std::nullopt;
         }
 
@@ -31,13 +33,14 @@ namespace extractors
         DWORD bytesRead;
         result = SFileReadFile(openedLocaleFile, localeFileBuffer.data(), localeFileBuffer.size() * sizeof(decltype(localeFileBuffer)::value_type), &bytesRead, nullptr);
         if (!result) {
-            std::cout << "Couldn't read the file that was found within MPQ Archive, error: " << GetLastError() << "\n";
+            logger->warn("Couldn't read the file that was found within MPQ Archive, error: {}", GetLastError());
             return std::nullopt;
         }
 
         SFileCloseFile(openedLocaleFile);
-
+        logger->info("Closed MPQ file!");
         std::string locale(localeFileBuffer.begin(), localeFileBuffer.end());
+        logger->info("Finished extract_locale_from_mpq() returning.");
         return std::make_optional(locale);
     }
 
@@ -45,6 +48,8 @@ namespace extractors
     // Function extracting localized map name:
     std::optional<std::string> extract_map_name_string(std::string game_description)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("Entered extract_map_name_string()");
         // Splitting the string into lines:
         std::vector<std::string> newline_split = helpers::split_string(game_description, "\r\n");
 
@@ -64,13 +69,14 @@ namespace extractors
 
             if (map_name.empty())
             {
-                std::cout << "Detected empty map name returning \n";
+                // TODO: Empty map check doesn't allow to find what is the currently processed map and doesn't allow for sufficient debugging later on.
+                logger->warn("Detected empty map_name returning.");
                 return std::nullopt;
             }
-
+            logger->info("Finished extract_map_name_string(), returning.");
             return std::make_optional(map_name);
         }
-        std::cout << "Error! Detected empty map name returning \n";
+        logger->warn("Detected empty map name returning.");
         return std::nullopt;
     }
 
@@ -79,8 +85,11 @@ namespace extractors
     // "koKR.SC2Data\\LocalizedData\\GameStrings.txt" -> "koKR"
     std::string locale_region_extractor(const std::string& region_name)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("Entered locale_region_extractor()");
         std::string dot_delimiter = ".";
         std::string locale_region = region_name.substr(0, region_name.find(dot_delimiter));
+        logger->info("Calculated locale_region = {}", locale_region);
         return locale_region;
     }
 
@@ -88,11 +97,13 @@ namespace extractors
     // sample output: {"koKR": "koreanMapName", "enUS": "englishMapName"}
     std::optional<nlohmann::json> locale_extractor(const std::filesystem::path& filepath)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("Entered locale_extractor()");
         // Opening MPQ Archive:
         HANDLE MPQArchive;
         if (!SFileOpenArchive(filepath.c_str(), 0, 0, &MPQArchive))
         {
-            std::cout << "Couldn't open MPQ archive, error: " << GetLastError() << "\n";
+            logger->warn("Couldn't open MPQ archive, error: {}", GetLastError());
             return std::nullopt;
         }
 
@@ -102,7 +113,7 @@ namespace extractors
         HANDLE searchHandle = SFileFindFirstFile(MPQArchive, "*GameStrings.txt", &foundLocaleFileData, nullptr);
         if (searchHandle == NULL)
         {
-            std::cout << "Couldn't find file in MPQ archive, error: " << GetLastError() << "\n";
+            logger->warn("Couldn't find file in MPQ archive, error: {}", GetLastError());
             return std::nullopt;
         }
 
@@ -114,27 +125,22 @@ namespace extractors
             auto maybe_locale = extract_locale_from_mpq(MPQArchive, foundLocaleFileData);
             // Checking if data was extracted:
             if (!maybe_locale.has_value()) {
-                std::cout << "Couldn't extract locale from MPQ, error: " << "\n";
+                logger->warn("Couldn't extract locale from MPQ");
                 continue;
             }
-
-            // Extracting map name:
-            std::optional<std::string> maybe_map_name_string = extract_map_name_string(*maybe_locale);
-            if (!maybe_map_name_string.has_value())
-            {
-                std::cout << "Detected empty map_name_string, skipping." << "\n";
-                continue;
-            }
-            std::string map_name_string = *maybe_map_name_string;
 
             // Obtaining region code:
             std::string region_name = foundLocaleFileData.cFileName;
             std::string locale_region = locale_region_extractor(region_name);
 
-            if (map_name_string == "")
+            // Extracting map name:
+            std::optional<std::string> maybe_map_name_string = extract_map_name_string(*maybe_locale);
+            if (!maybe_map_name_string.has_value())
             {
-                std::cout << "Detected empty string as a foreign_map_name, skipping. This happened when reading: " << locale_region << "\n";
+                logger->warn("Detected empty map_name_string in filepath: {}. This happened while parsing region: {}. Skipping!", filepath.string(), locale_region);
+                continue;
             }
+            std::string map_name_string = *maybe_map_name_string;
 
             myMapping[locale_region] = map_name_string;
 
@@ -142,7 +148,9 @@ namespace extractors
 
         // Freeing up resource:
         SFileCloseFile(searchHandle);
+        logger->info("Closed searched file.");
         SFileCloseArchive(MPQArchive);
+        logger->info("Closed MPQ archive.");
 
         return std::make_optional(myMapping);
     }
@@ -152,15 +160,18 @@ namespace extractors
     // Sample output: {"koreanMapName": "englishMapName", "polishMapName": "englishMapName"}
     std::optional<nlohmann::json> locale_extraction_pipeline(const std::string& filepath)
     {
+        auto logger = spdlog::get("logger");
+        logger->info("Entered locale_extraction_pipeline()");
         // Initializing empty mapping container:
         std::vector<nlohmann::json> mapping_container;
         std::vector<std::filesystem::path> detected_files;
+        logger->info("Initialized variables mapping_container and detected_files.");
 
         // Reading directory contents from filepath:
         helpers::directory_reader(detected_files, filepath, ".SC2Map");
         if (detected_files.empty())
         {
-            std::cout << "directory_reader returned empty vector" << "\n";
+            logger->warn("directory_reader failed to populated detected_files! Returning std::nullopt");
             return std::nullopt;
         }
 
@@ -175,7 +186,7 @@ namespace extractors
             }
             else
             {
-                std::cout << "Couldn't extract locale information from a file." << "\n";
+                logger->warn("Couldn't extract locale information from a file: {}", file.string());
                 continue;
             }
         }
@@ -188,7 +199,7 @@ namespace extractors
             return std::make_optional(final_mapping);
         }
 
-        std::cout << "Couldn't extract locale information from a file." << "\n";
+        logger->warn("Failed to generate final locale mapping! Returning std::nullopt");
         return std::nullopt;
     }
 

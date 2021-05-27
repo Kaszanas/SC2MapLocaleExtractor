@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4782695.svg)](https://doi.org/10.5281/zenodo.4782695)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4816147.svg)](https://doi.org/10.5281/zenodo.4816147)
 
 ## SC2MapLocaleExtractor
 
@@ -86,17 +86,17 @@ If You use this tool please cite is as follows:
 
 
 ```
-@software{Bialecki2021_4782695,
+@software{Bialecki2021_4816147,
   author       = {Białecki, Andrzej and
                   Białecki, Piotr},
-  title        = {{Kaszanas/SC2MapLocaleExtractor: 1.0.1 
+  title        = {{Kaszanas/SC2MapLocaleExtractor: 1.1.0 
                    SC2MapLocaleExtractor Release}},
   month        = may,
   year         = 2021,
   publisher    = {Zenodo},
-  version      = {1.0.1},
-  doi          = {10.5281/zenodo.4782695},
-  url          = {https://doi.org/10.5281/zenodo.4782695}
+  version      = {1.1.0},
+  doi          = {10.5281/zenodo.4816147},
+  url          = {https://doi.org/10.5281/zenodo.4816147}
 }
 ```
 

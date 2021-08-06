@@ -81,13 +81,13 @@ namespace helpers
             prev = pos + 1;
         }
 
-        // To get the last substring (or only, if delimiter is not found)
+        // To get the last substring (or only, if delimiter is not found):
         strings.push_back(str.substr(prev));
 
         return strings;
     }
 
-    // Function generating a final locale mapping from {"foreignName": "englishName"}
+    // Function generating a final locale mapping from {"foreignName": "englishName"}:
     std::optional<nlohmann::json> generate_final_locale_mapping(const std::vector<nlohmann::json>& not_mapped_locales)
     {
         auto logger = spdlog::get("logger");
@@ -102,7 +102,9 @@ namespace helpers
             if (map_locale.contains("enUS"))
             {
                 std::string en_map_name = map_locale["enUS"];
-                // Iterating over all of the values and do {"foreignName": "englishName"}
+                // Adding {"englishName": "englishName"} before iterating over other locales:
+                final_mapping.emplace(en_map_name, en_map_name);
+                // Iterating over all of the values and do {"foreignName": "englishName"}:
                 for (auto& foreign_map_mapping : map_locale.items())
                 {
                     // Mapping foreign name to english name:

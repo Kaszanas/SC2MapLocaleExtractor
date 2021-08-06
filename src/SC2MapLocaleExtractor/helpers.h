@@ -7,19 +7,19 @@
 
 namespace helpers
 {
-	// String functions
+	// String functions:
 	std::wstring s2ws(const std::string& str);
 	std::string ws2s(const std::wstring& wstr);
 
-	// File system
+	// File system:
 	void directory_reader(std::vector<std::filesystem::path>& vector_to_populate, const std::string& input_directory, const std::string& get_extension);
 
-	// String operations
+	// String operations:
 	std::vector<std::string> split_string(const std::string& str, const std::string& delimiter);
 
-	// JSON
+	// JSON:
 	std::optional<nlohmann::json> generate_final_locale_mapping(const std::vector<nlohmann::json>& not_mapped_locales);
 
-	// Logger
+	// Logger:
 	void initialize_logger();
 }

@@ -69,7 +69,7 @@ namespace extractors
 
             if (map_name.empty())
             {
-                // TODO: Empty map check doesn't allow to find what is the currently processed map and doesn't allow for sufficient debugging later on.
+                // TODO: Empty map check doesn't allow to find what is the currently processed map and doesn't allow for sufficient debugging later on:
                 logger->warn("Detected empty map_name returning.");
                 return std::nullopt;
             }
@@ -93,7 +93,7 @@ namespace extractors
         return locale_region;
     }
 
-    // Function extracting locale information from a single MPQ ".SC2Map" file
+    // Function extracting locale information from a single MPQ ".SC2Map" file:
     // sample output: {"koKR": "koreanMapName", "enUS": "englishMapName"}
     std::optional<nlohmann::json> locale_extractor(const std::filesystem::path& filepath)
     {
@@ -121,7 +121,6 @@ namespace extractors
         nlohmann::json myMapping;
         do
         {
-            // Calling helper method to 
             auto maybe_locale = extract_locale_from_mpq(MPQArchive, foundLocaleFileData);
             // Checking if data was extracted:
             if (!maybe_locale.has_value()) {
